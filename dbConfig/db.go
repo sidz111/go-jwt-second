@@ -16,7 +16,7 @@ func ConnectDB(db *gorm.DB) error {
 	port := "3306"
 	db_name := "jwt_db_user"
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true", user_name, user_password, host, port, db_name)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", user_name, user_password, host, port, db_name)
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return err
