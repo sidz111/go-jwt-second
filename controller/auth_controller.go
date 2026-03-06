@@ -13,7 +13,7 @@ import (
 type AuthController struct {
 }
 
-func (ac *AuthController) login(c *gin.Context) {
+func (ac *AuthController) Login(c *gin.Context) {
 	var user models.User
 	var foundUser models.User
 
@@ -30,8 +30,8 @@ func (ac *AuthController) login(c *gin.Context) {
 	}
 	dbconfig.DB.Where("id = ?", user.ID).First(&foundUser)
 	if err := bcrypt.CompareHashAndPassword(
-		[]byte(user.Password),
 		[]byte(foundUser.Password),
+		[]byte(user.Password),
 	); err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"error": "Invalid Password",
@@ -44,6 +44,8 @@ func (ac *AuthController) login(c *gin.Context) {
 		c.JSON(500, gin.H{"error": "Failed to generate token"})
 		return
 	}
+	foundUser.Token = token
+	dbconfig.DB.Save(&foundUser)
 
 	c.JSON(200, gin.H{"token": token})
 

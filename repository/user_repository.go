@@ -33,6 +33,7 @@ func (r *userRepository) CreateUser(ctx context.Context, user *models.User) (int
 }
 func (r *userRepository) GetUserByID(ctx context.Context, id int) (*models.User, error) {
 	var user models.User
+	// result := r.db.Where("id=?", id).First(&models.User{}, id)
 	result := r.db.WithContext(ctx).First(&user, id)
 	if result.Error != nil {
 		return nil, result.Error

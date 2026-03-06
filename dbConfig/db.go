@@ -9,11 +9,11 @@ import (
 
 var DB *gorm.DB
 
-func ConnectDB(db *gorm.DB) error {
+func ConnectDB() error {
 	user_name := "root"
 	user_password := "root"
 	host := "localhost"
-	port := "3306"
+	port := "3303"
 	db_name := "jwt_db_user"
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", user_name, user_password, host, port, db_name)
