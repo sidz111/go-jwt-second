@@ -10,7 +10,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func login(c *gin.Context) {
+type AuthController struct {
+}
+
+func (ac *AuthController) login(c *gin.Context) {
 	var user models.User
 	var foundUser models.User
 
