@@ -18,7 +18,7 @@ func GenerateJWT(username string, userID uint) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString(SECRET_KEY)
 	if err != nil {
-		return "", errors.New("failed to create token")
+		return "no token string", errors.New("failed to generate token")
 	}
 	return tokenString, err
 }
