@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -15,5 +16,9 @@ func GenerateJWT(username string, userID uint) (string, error) {
 		"exp":      time.Now().Add(time.Hour * 24).Unix(),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(SECRET_KEY)
+	tokenString, err := token.SignedString(SECRET_KEY)
+	if err != nil {
+		return "", errors.New("failed to create token")
+	}
+	return tokenString, err
 }
