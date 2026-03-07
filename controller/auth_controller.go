@@ -39,7 +39,7 @@ func (ac *AuthController) Login(c *gin.Context) {
 		return
 	}
 
-	token, err := utils.GenerateJWT(user.Name, int(user.ID))
+	token, err := utils.GenerateJWT(user.Name, user.ID)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to generate token"})
 		return

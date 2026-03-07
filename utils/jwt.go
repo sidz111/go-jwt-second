@@ -8,7 +8,7 @@ import (
 
 var SECRET_KEY = []byte("supersecretkey")
 
-func GenerateJWT(username string, userID int) (string, error) {
+func GenerateJWT(username string, userID uint) (string, error) {
 	claims := jwt.MapClaims{
 		"username": username,
 		"user_id":  userID,
