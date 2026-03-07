@@ -10,7 +10,7 @@ import (
 )
 
 type UserService interface {
-	CreateUser(ctx context.Context, user *models.User) (int, error)
+	CreateUser(ctx context.Context, user *models.User) (uint, error)
 	GetUserByID(ctx context.Context, id int) (*models.User, error)
 	GetAllUsers(ctx context.Context) ([]*models.User, error)
 	DeleteUser(ctx context.Context, id int) error
@@ -25,7 +25,7 @@ func NewUserService(repo repository.UserRepository) UserService {
 	return &userService{repo: repo}
 }
 
-func (s *userService) CreateUser(ctx context.Context, user *models.User) (int, error) {
+func (s *userService) CreateUser(ctx context.Context, user *models.User) (uint, error) {
 	if err := ValidateUser(user); err != nil {
 		return 0, err
 	}

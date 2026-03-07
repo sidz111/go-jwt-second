@@ -9,7 +9,7 @@ import (
 )
 
 type UserRepository interface {
-	CreateUser(ctx context.Context, user *models.User) (int, error)
+	CreateUser(ctx context.Context, user *models.User) (uint, error)
 	GetUserByID(ctx context.Context, id int) (*models.User, error)
 	GetAllUsers(ctx context.Context) ([]*models.User, error)
 	DeleteUser(ctx context.Context, id int) error
@@ -24,12 +24,12 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	return &userRepository{db: db}
 }
 
-func (r *userRepository) CreateUser(ctx context.Context, user *models.User) (int, error) {
+func (r *userRepository) CreateUser(ctx context.Context, user *models.User) (uint, error) {
 	result := r.db.WithContext(ctx).Create(user)
 	if result.Error != nil {
 		return 0, result.Error
 	}
-	return int(user.ID), nil
+	return user.ID, nil
 }
 func (r *userRepository) GetUserByID(ctx context.Context, id int) (*models.User, error) {
 	var user models.User
