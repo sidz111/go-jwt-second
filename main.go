@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sidz111/jwt-second-project/controller"
 	dbconfig "github.com/sidz111/jwt-second-project/dbConfig"
+	"github.com/sidz111/jwt-second-project/middleware"
 	"github.com/sidz111/jwt-second-project/models"
 	"github.com/sidz111/jwt-second-project/repository"
 	"github.com/sidz111/jwt-second-project/routes"
@@ -16,6 +17,7 @@ func main() {
 	}
 	r := gin.Default()
 
+	r.Use(middleware.AuthMiddleware())
 	dbconfig.DB.AutoMigrate(&models.User{})
 	repos := repository.NewUserRepository(dbconfig.DB)
 	serv := service.NewUserService(repos)
